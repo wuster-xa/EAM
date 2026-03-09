@@ -342,38 +342,18 @@ const handleViewQrCode = async (row) => {
 const handlePrintQrCode = () => {
   // 创建打印窗口
   const printWindow = window.open('', '_blank')
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>打印二维码</title>
-      <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        .qrcode { margin: 20px auto; }
-        .qrcode img { width: 200px; height: 200px; }
-        .info { margin-top: 20px; font-size: 14px; }
-        .info p { margin: 5px 0; }
-      </style>
-    </head>
-    <body>
-      <h2>资产二维码</h2>
-      <div class="qrcode">
-        <img src="${qrCodeBase64.value}" alt="二维码" />
-      </div>
-      <div class="info">
-        <p><strong>资产名称：</strong>${currentAsset.value.assetName}</p>
-        <p><strong>资产编码：</strong>${currentAsset.value.assetCode}</p>
-        <p><strong>UUID：</strong>${currentAsset.value.uuid}</p>
-      </div>
-      <script>
-        window.onload = function() {
-          window.print();
-          window.close();
-        }
-      </script>
-    </body>
-    </html>
-  `)
+  const html = '<!DOCTYPE html><html><head><title>打印二维码</title>' +
+    '<style>body{font-family:Arial,sans-serif;text-align:center;padding:20px;}' +
+    '.qrcode{margin:20px auto;}.qrcode img{width:200px;height:200px;}' +
+    '.info{margin-top:20px;font-size:14px;}.info p{margin:5px 0;}</style></head>' +
+    '<body><h2>资产二维码</h2><div class="qrcode">' +
+    '<img src="' + qrCodeBase64.value + '" alt="二维码" /></div>' +
+    '<div class="info"><p><strong>资产名称：</strong>' + currentAsset.value.assetName + '</p>' +
+    '<p><strong>资产编码：</strong>' + currentAsset.value.assetCode + '</p>' +
+    '<p><strong>UUID：</strong>' + currentAsset.value.uuid + '</p></div>' +
+    '<scr' + 'ipt>window.onload=function(){window.print();window.close();}</scr' + 'ipt>' +
+    '</body></html>'
+  printWindow.document.write(html)
   printWindow.document.close()
 }
 
