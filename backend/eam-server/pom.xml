@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- 项目基本信息 -->
+    <groupId>com.eam</groupId>
+    <artifactId>eam-server</artifactId>
+    <version>1.0.0</version>
+    <name>eam-server</name>
+    <description>企业固定资产全生命周期管理系统后端服务</description>
+    
+    <!-- Spring Boot 父工程 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/>
+    </parent>
+    
+    <!-- 项目属性配置 -->
+    <properties>
+        <java.version>17</java.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <jwt.version>0.12.5</jwt.version>
+        <zxing.version>3.5.3</zxing.version>
+        <hutool.version>5.8.26</hutool.version>
+        <springdoc.version>2.3.0</springdoc.version>
+    </properties>
+    
+    <!-- 依赖管理 -->
+    <dependencies>
+        <!-- ==================== Spring Boot 核心依赖 ==================== -->
+        
+        <!-- Spring Boot Web 启动器：提供Web开发支持，包含Tomcat、Spring MVC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot Validation：提供参数校验功能（@Valid, @NotBlank等） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot AOP：提供切面编程支持，用于操作日志记录 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot Security：提供安全框架支持，实现JWT认证 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!-- ==================== 数据库相关依赖 ==================== -->
+        
+        <!-- MySQL 驱动：MySQL数据库连接驱动 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- MyBatis-Plus：MyBatis增强工具，提供通用Mapper、分页、乐观锁等功能 -->
+        <!-- 核心功能：代码生成器、分页插件、乐观锁插件、逻辑删除、自动填充 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+        
+        <!-- ==================== 工具类依赖 ==================== -->
+        
+        <!-- Lombok：简化Java代码，自动生成getter/setter/构造器等 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- Hutool：Java工具类库，提供字符串、日期、加密等常用工具方法 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        
+        <!-- ==================== JWT 认证依赖 ==================== -->
+        
+        <!-- JJWT：JSON Web Token 实现，用于生成和解析JWT令牌 -->
+        <!-- 实现无状态认证，支持跨域请求 -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- ==================== 二维码生成依赖 ==================== -->
+        
+        <!-- Google ZXing：二维码生成与解析核心库 -->
+        <!-- 用于资产UUID二维码生成，实现移动端扫码盘点 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${zxing.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${zxing.version}</version>
+        </dependency>
+        
+        <!-- ==================== API 文档依赖 ==================== -->
+        
+        <!-- SpringDoc OpenAPI：生成在线API文档（Swagger UI） -->
+        <!-- 访问地址：http://localhost:8080/swagger-ui.html -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+        
+        <!-- ==================== 测试依赖 ==================== -->
+        
+        <!-- Spring Boot Test：单元测试支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <!-- 构建配置 -->
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven 插件：支持打包为可执行JAR -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
